@@ -1,15 +1,24 @@
-var  buttonColours = ["red", "blue", "green", "yellow"];
-var gamePattern = [];
 
-function nextSequence(){
-    var randomNumber = Math.floor(Math.random()*4);
-    var  randomChosenColour = buttonColours[randomNumber];
-    gamePattern.push(randomChosenColour);
+var btns = ["green","red","yellow","blue"];
 
+var randomBtnValue = Math.floor(Math.random()*4);
+var randomBtn = btns[randomBtnValue];
+
+var userSelection;
+var count = 0;
+
+$("#level-title").text("Press any key to start");
+$("document").on("keypress", function(){
+    $("button").on("click", function(){
+        userSelection = $(this).attr("id");
+    });
     
-    $("#" + randomChosenColour).fadeIn(100).fadeOut(100).fadeIn(100);
-
-    var audio = new Audio("sounds/" + randomChosenColour + ".mp3");
-    audio.play();
-}
-
+    
+    if (userSelection === randomBtn){
+        count++;
+        $("#level-title").text("Level "+count);
+    }else{
+        $("#level-title").text("Game over. Press any key to start.");
+        $("button").addClass("game-over");
+    }
+})
